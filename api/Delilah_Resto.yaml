@@ -7,7 +7,7 @@ info:
     name: Paola Andrea Cadena Joya
     url: www.linkedin.com/in/paola-andrea-cadena-joya-62995920b
     email: pcadenajoya@hotmail.com
-   
+
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html'
@@ -16,14 +16,13 @@ info:
 externalDocs:
   description: Github Repository
   url: https://github.com/paolandrea18/Delilah_Resto
-  
+
 servers:
-  # Added by API Auto Mocking Plugin
   - description: Delilah Resto API Server
     url: http://localhost:4000/api
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/delilah-resto42/DelilahResto/1.0.0
-  
+
 tags:
   - name: users
     description: User's own operations in the application, such as creating a user, logging in, updating information, ordering products and deleting their own information. And operations restricted to admin profile.
@@ -37,7 +36,7 @@ paths:
   /users:
     post:
       tags:
-      - users
+        - users
       summary: Create User
       description: Only an unregistered user can perform this action to create a new user.
       operationId: createUser
@@ -47,7 +46,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/users'
+              $ref: "#/components/schemas/users"
       responses:
         201:
           description: Created.
@@ -55,19 +54,19 @@ paths:
             application/json:
               schema:
                 type: string
-                example: { "message": "El usuario ha sido creado con éxito."}
+                example: { "message": "El usuario ha sido creado con éxito." }
         501:
           description: Error.
-          content: 
+          content:
             application/json:
               schema:
                 type: string
-                example: { "error": "Error en la creación de usuario."}
-  
+                example: { "error": "Error en la creación de usuario." }
+
   /users/login:
     post:
       tags:
-      - users
+        - users
       summary: Login for registered users
       description: Login for registered users to place orders and modify their personal information.
       operationId: login
@@ -77,75 +76,78 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/login'
+              $ref: "#/components/schemas/login"
       responses:
-          200:
-            description: OK.
-            content:
-              application/json:
-                schema:
-                  required:
+        200:
+          description: OK.
+          content:
+            application/json:
+              schema:
+                required:
                   - message
                   - data
-                  type: object
-                  properties:
-                    message:
-                      type: string
-                      example: "Usuario logeado con éxito."
-                    data:
-                      type: string
-                      example: {"accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImphbmVkb2UiLCJwYXNzd29yZCI6ImFiYzQ1NiIsImlhdCI6MTYzNzE2MDYxMn0.FqwMm6X5I1Z2fV4Kl9OJG6VTa8KoGzerRAu4cwOWOlE"}
-          400:
-            description: Bad Request.
-            content: 
-              application/json:
-                schema:
-                  type: string
-                  example: { "message": "Usuario o contraseña inválidos."}     
-          404:
-            description: Not Found.
-            content: 
-              application/json:
-                schema:
-                  type: string
-                  example: { "message": "Usuario o contraseña no encontrados."} 
-          501:
-            description: Error.
-            content: 
-              application/json:
-                schema:
-                  type: string
-                  example: { "error": "Error en login de usuario."}               
-  
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Usuario logeado con éxito."
+                  data:
+                    type: string
+                    example:
+                      {
+                        "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImphbmVkb2UiLCJwYXNzd29yZCI6ImFiYzQ1NiIsImlhdCI6MTYzNzE2MDYxMn0.FqwMm6X5I1Z2fV4Kl9OJG6VTa8KoGzerRAu4cwOWOlE",
+                      }
+        400:
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                type: string
+                example: { "message": "Usuario o contraseña inválidos." }
+        404:
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                type: string
+                example: { "message": "Usuario o contraseña no encontrados." }
+        501:
+          description: Error.
+          content:
+            application/json:
+              schema:
+                type: string
+                example: { "error": "Error en login de usuario." }
+
   /users/getAllUsers/{roleId}:
     get:
       tags:
-      - users
+        - users
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       summary: Get All Users
-      description: Only an administrator user can access to all users information 
+      description: Only an administrator user can access to all users information
       operationId: getAllUsers
       parameters:
-      - name: roleId
-        in: path
-        description: Specifies the role of the user to be able to perform the action and access the information as an administrator.
-        required: true
-        schema:
-          type: integer
-          format: int32
-          example: 1
+        - name: roleId
+          in: path
+          description: Specifies the role of the user to be able to perform the action and access the information as an administrator.
+          required: true
+          schema:
+            type: integer
+            format: int32
+            example: 1
       responses:
         200:
           description: OK - data.
-          content: 
+          content:
             application/json:
-              schema: 
+              schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/allUsers'
+                  $ref: "#/components/schemas/allUsers"
               example:
-                - userId: 1 
+                - userId: 1
                   username: "pancajo"
                   roleId: 1
                   password: "$2b$10$swbn9VczVKJevuCS39CELOvgpyKgMk1ufcuvuKTzJePYo1qw3GQVi"
@@ -156,7 +158,7 @@ paths:
                   phone: "3124567890"
                   enable:
                     "type": "Buffer"
-                    "data": [1] 
+                    "data": [1]
                 - userId: 2
                   username: "janedoe"
                   roleId: 2
@@ -168,7 +170,7 @@ paths:
                   phone: "3101234567"
                   enable:
                     "type": "Buffer"
-                    "data": [1] 
+                    "data": [1]
                 - userId: 3
                   username: "laracroft"
                   roleId: 2
@@ -180,7 +182,7 @@ paths:
                   phone: "3159876543"
                   enable:
                     "type": "Buffer"
-                    "data": [1] 
+                    "data": [1]
         401:
           description: Unauthorized
           content: {}
@@ -190,39 +192,41 @@ paths:
             application/json:
               schema:
                 oneOf:
-                - $ref: '#/components/responses/token403'
-                - $ref: '#/components/responses/403'
+                  - $ref: "#/components/responses/token403"
+                  - $ref: "#/components/responses/403"
               example:
-              - Forbidden
-              - {"message": "El usuario no tiene permisos para esta acción."}
+                - Forbidden
+                - {
+                    "message": "El usuario no tiene permisos para esta acción.",
+                  }
         501:
           description: Error.
-          content: 
+          content:
             application/json:
               schema:
                 oneOf:
-                - $ref: '#/components/responses/501'
-                - $ref: '#/components/responses/validator501'
-              example: 
-              - {"error": "No se pudo obtener la información."}
-              - {"error": "Error en validación"}    
-  
+                  - $ref: "#/components/responses/501"
+                  - $ref: "#/components/responses/validator501"
+              example:
+                - { "error": "No se pudo obtener la información." }
+                - { "error": "Error en validación" }
+
   /users/update:
     put:
       tags:
-      - users
+        - users
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       summary: Update user information
-      description: Update the information user, only the administrator can perform this action and update any user from the database, if the user has a client role he/she can only update his/her own information; system verifies if the update user is the same user in session (userLoggeId) and allows the action otherwise it will deny the request to the user. 
+      description: Update the information user, only the administrator can perform this action and update any user from the database, if the user has a client role he/she can only update his/her own information; system verifies if the update user is the same user in session (userLoggeId) and allows the action otherwise it will deny the request to the user.
       operationId: update
       requestBody:
         description: New user
         required: true
         content:
           application/json:
-            schema: 
-              $ref: '#/components/schemas/updateUser'
+            schema:
+              $ref: "#/components/schemas/updateUser"
       responses:
         201:
           description: Created.
@@ -230,7 +234,7 @@ paths:
             application/json:
               schema:
                 type: string
-                example: { "message": "Usuario actualizado con éxito."}
+                example: { "message": "Usuario actualizado con éxito." }
         401:
           description: Unauthorized
           content: {}
@@ -240,58 +244,60 @@ paths:
             application/json:
               schema:
                 oneOf:
-                - $ref: '#/components/responses/token403'
-                - $ref: '#/components/responses/403'
+                  - $ref: "#/components/responses/token403"
+                  - $ref: "#/components/responses/403"
               example:
-              - Forbidden
-              - {"message": "El usuario no tiene permisos para esta acción."}
+                - Forbidden
+                - {
+                    "message": "El usuario no tiene permisos para esta acción.",
+                  }
         501:
           description: Error.
-          content: 
+          content:
             application/json:
               schema:
                 oneOf:
-                - $ref: '#/components/responses/501'
-                - $ref: '#/components/responses/validator501'
-              example: 
-              - {"error": "El usuario no pudo ser actualizado."}
-              - {"error": "Error en validación"}    
-  
-  /users/{userLoggedId}/{userId}:  
+                  - $ref: "#/components/responses/501"
+                  - $ref: "#/components/responses/validator501"
+              example:
+                - { "error": "El usuario no pudo ser actualizado." }
+                - { "error": "Error en validación" }
+
+  /users/{userLoggedId}/{userId}:
     get:
       tags:
-      - users
+        - users
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       summary: Get User by Id
-      description: Get all information user by Id, only the administrator can perform this action and get the information of any user from the database by id, if the user has a client role he/she can only get his/her own information, in this case the system verifies if the query user is the same user in session (userLoggeId) and allows the action otherwise it will deny the request to the user. 
+      description: Get all information user by Id, only the administrator can perform this action and get the information of any user from the database by id, if the user has a client role he/she can only get his/her own information, in this case the system verifies if the query user is the same user in session (userLoggeId) and allows the action otherwise it will deny the request to the user.
       operationId: getUserById
       parameters:
-      - name: userLoggedId
-        in: path
-        description: Identifies the logged on user and whether he/she has permissions to perform the get user by Id. action.
-        required: true
-        schema:
-          type: integer
-          format: int32
-          example: 1
-      - name: userId
-        in: path
-        description: Specifies the user id to query, each user is identified with a numeric id. 
-        required: true
-        schema:
-          type: integer
-          format: int32 
-          example: 123
+        - name: userLoggedId
+          in: path
+          description: Identifies the logged on user and whether he/she has permissions to perform the get user by Id. action.
+          required: true
+          schema:
+            type: integer
+            format: int32
+            example: 1
+        - name: userId
+          in: path
+          description: Specifies the user id to query, each user is identified with a numeric id.
+          required: true
+          schema:
+            type: integer
+            format: int32
+            example: 123
       responses:
         200:
           description: OK - data.
-          content: 
+          content:
             application/json:
-              schema: 
+              schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/userById'
+                  $ref: "#/components/schemas/userById"
         401:
           description: Unauthorized
           content: {}
@@ -301,49 +307,53 @@ paths:
             application/json:
               schema:
                 oneOf:
-                - $ref: '#/components/responses/token403'
-                - $ref: '#/components/responses/403'
+                  - $ref: "#/components/responses/token403"
+                  - $ref: "#/components/responses/403"
               example:
-              - Forbidden
-              - {"message": "El usuario no tiene permisos para esta acción."}
+                - Forbidden
+                - {
+                    "message": "El usuario no tiene permisos para esta acción.",
+                  }
         501:
           description: Error.
-          content: 
+          content:
             application/json:
               schema:
                 oneOf:
-                - $ref: '#/components/responses/501'
-                - $ref: '#/components/responses/validator501'
-              example: 
-              - {"error": "La información del usuario no pudo ser consultada."}
-              - {"error": "Error en validación"}    
-  
-  /users/delete/{userLoggedId}/{userId}:  
+                  - $ref: "#/components/responses/501"
+                  - $ref: "#/components/responses/validator501"
+              example:
+                - {
+                    "error": "La información del usuario no pudo ser consultada.",
+                  }
+                - { "error": "Error en validación" }
+
+  /users/delete/{userLoggedId}/{userId}:
     delete:
       tags:
-      - users
+        - users
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       summary: Delete User
-      description: Delete a user, only the administrator can perform this action and delete any user from the database, if the user has a client role he/she can only delete his/her own information, in this case the system verifies if the user to delete is the same user in session (userLoggeId) and allows the action otherwise it will deny the request to the user. 
+      description: Delete a user, only the administrator can perform this action and delete any user from the database, if the user has a client role he/she can only delete his/her own information, in this case the system verifies if the user to delete is the same user in session (userLoggeId) and allows the action otherwise it will deny the request to the user.
       operationId: deleteUser
       parameters:
-      - name: userLoggedId
-        in: path
-        description: Identifies the logged on user and whether he/she has permissions to perform the delete user action. 
-        required: true
-        schema:
-          type: integer
-          format: int32
-          example: 1
-      - name: userId
-        in: path
-        description: Specifies the userId to be able to perform the action and delete his own information.
-        required: true
-        schema:
-          type: integer
-          format: int32
-          example: 7
+        - name: userLoggedId
+          in: path
+          description: Identifies the logged on user and whether he/she has permissions to perform the delete user action.
+          required: true
+          schema:
+            type: integer
+            format: int32
+            example: 1
+        - name: userId
+          in: path
+          description: Specifies the userId to be able to perform the action and delete his own information.
+          required: true
+          schema:
+            type: integer
+            format: int32
+            example: 7
       responses:
         201:
           description: Created.
@@ -351,7 +361,7 @@ paths:
             application/json:
               schema:
                 type: string
-                example: { "message": "Usuario eliminado con éxito."}
+                example: { "message": "Usuario eliminado con éxito." }
         401:
           description: Unauthorized
           content: {}
@@ -361,40 +371,42 @@ paths:
             application/json:
               schema:
                 oneOf:
-                - $ref: '#/components/responses/token403'
-                - $ref: '#/components/responses/403'
+                  - $ref: "#/components/responses/token403"
+                  - $ref: "#/components/responses/403"
               example:
-              - Forbidden
-              - {"message": "El usuario no tiene permisos para esta acción."}
+                - Forbidden
+                - {
+                    "message": "El usuario no tiene permisos para esta acción.",
+                  }
         501:
           description: Error.
-          content: 
+          content:
             application/json:
               schema:
                 oneOf:
-                - $ref: '#/components/responses/501'
-                - $ref: '#/components/responses/validator501'
-              example: 
-              - {"error": "El usuario no pudo ser eliminado."}
-              - {"error": "Error en validación"}    
-              
-#PRODUCTS PATHS
+                  - $ref: "#/components/responses/501"
+                  - $ref: "#/components/responses/validator501"
+              example:
+                - { "error": "El usuario no pudo ser eliminado." }
+                - { "error": "Error en validación" }
+
+  #PRODUCTS PATHS
   /products:
     get:
       tags:
-      - products
+        - products
       summary: Get all products.
       description: Consult all the products in the menu with their specifications.
       operationId: getAllProducts
       responses:
         200:
           description: OK - data.
-          content: 
+          content:
             application/json:
-              schema: 
+              schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/productId'
+                  $ref: "#/components/schemas/productId"
                 example:
                   - productId: 1
                     name: Hamburguesa
@@ -410,18 +422,18 @@ paths:
                     cost: 15000
         501:
           description: Error.
-          content: 
+          content:
             application/json:
               schema:
-                $ref: '#/components/responses/501'
-              example: 
-              - {"error": "No se puede obtener la información."}
-  
+                $ref: "#/components/responses/501"
+              example:
+                - { "error": "No se puede obtener la información." }
+
     post:
       tags:
-      - products
+        - products
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       summary: Create Product
       description: Only an administrator user can create a new product.
       operationId: createProduct
@@ -431,7 +443,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/productInfo'
+              $ref: "#/components/schemas/productInfo"
             example:
               roleId: 1
               name: "Kangre Burguer"
@@ -444,7 +456,7 @@ paths:
             application/json:
               schema:
                 type: string
-                example: { "message": "Producto creado con éxito."}
+                example: { "message": "Producto creado con éxito." }
         401:
           description: Unauthorized
           content: {}
@@ -454,28 +466,30 @@ paths:
             application/json:
               schema:
                 oneOf:
-                - $ref: '#/components/responses/token403'
-                - $ref: '#/components/responses/403'
+                  - $ref: "#/components/responses/token403"
+                  - $ref: "#/components/responses/403"
               example:
-              - Forbidden
-              - {"message": "El usuario no tiene permisos para esta acción."}
+                - Forbidden
+                - {
+                    "message": "El usuario no tiene permisos para esta acción.",
+                  }
         501:
           description: Error.
-          content: 
+          content:
             application/json:
               schema:
                 oneOf:
-                - $ref: '#/components/responses/501'
-                - $ref: '#/components/responses/validator501'
-              example: 
-              - {"error": "El producto no pudo ser creado."}
-              - {"error": "Error en validación"}    
-    
+                  - $ref: "#/components/responses/501"
+                  - $ref: "#/components/responses/validator501"
+              example:
+                - { "error": "El producto no pudo ser creado." }
+                - { "error": "Error en validación" }
+
     put:
       tags:
-      - products
+        - products
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       summary: Update Product
       description: Update and existing product. Only the administrator can perform this action.
       operationId: updateProduct
@@ -485,7 +499,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/productInfo'
+              $ref: "#/components/schemas/productInfo"
             example:
               roleId: 1
               productId: 2
@@ -499,7 +513,7 @@ paths:
             application/json:
               schema:
                 type: string
-                example: { "message": "Producto actualizado con éxito."}
+                example: { "message": "Producto actualizado con éxito." }
         401:
           description: Unauthorized
           content: {}
@@ -509,48 +523,50 @@ paths:
             application/json:
               schema:
                 oneOf:
-                - $ref: '#/components/responses/token403'
-                - $ref: '#/components/responses/403'
+                  - $ref: "#/components/responses/token403"
+                  - $ref: "#/components/responses/403"
               example:
-              - Forbidden
-              - {"message": "El usuario no tiene permisos para esta acción."}
+                - Forbidden
+                - {
+                    "message": "El usuario no tiene permisos para esta acción.",
+                  }
         501:
           description: Error.
-          content: 
+          content:
             application/json:
               schema:
                 oneOf:
-                - $ref: '#/components/responses/501'
-                - $ref: '#/components/responses/validator501'
-              example: 
-              - {"error": "El producto no pudo ser actualizado."}
-              - {"error": "Error en validación"}            
-    
+                  - $ref: "#/components/responses/501"
+                  - $ref: "#/components/responses/validator501"
+              example:
+                - { "error": "El producto no pudo ser actualizado." }
+                - { "error": "Error en validación" }
+
   /products/getById/{productId}:
     get:
       tags:
-      - products
+        - products
       summary: Get Products by Product Id
       description: Consult the products in the menu through the productId to review all the product information.
       operationId: getById
       parameters:
-      - name: productId
-        in: path
-        description: Specifies the product id to query, each product is identified with a numeric id. 
-        required: true
-        schema:
-          type: integer
-          format: int32 
-          example: 12
+        - name: productId
+          in: path
+          description: Specifies the product id to query, each product is identified with a numeric id.
+          required: true
+          schema:
+            type: integer
+            format: int32
+            example: 12
       responses:
         200:
           description: OK - data.
-          content: 
+          content:
             application/json:
-              schema: 
+              schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/productId'
+                  $ref: "#/components/schemas/productId"
                 example:
                   - productId: 3
                     name: Nachos
@@ -558,39 +574,39 @@ paths:
                     cost: 15000
         501:
           description: Error.
-          content: 
+          content:
             application/json:
               schema:
-                $ref: '#/components/responses/501'
-              example: 
-              - {"error": "No se puede obtener la información."}
-    
+                $ref: "#/components/responses/501"
+              example:
+                - { "error": "No se puede obtener la información." }
+
   /products/{roleId}/{productId}:
     delete:
       tags:
-      - products
+        - products
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       summary: Delete Product
       description: Delete a product, only the administrator can perform this action and delete any product from the database.
       operationId: deleteProduct
       parameters:
-      - name: roleId
-        in: path
-        description: Specifies the role of the user to be able to perform the action and access the information as an administrator.
-        required: true
-        schema:
-          type: integer
-          format: int32
-          example: 1
-      - name: productId
-        in: path
-        description: Specifies the product id to delete, each product is identified with a numeric id.
-        required: true
-        schema:
-          type: integer
-          format: int32
-          example: 7
+        - name: roleId
+          in: path
+          description: Specifies the role of the user to be able to perform the action and access the information as an administrator.
+          required: true
+          schema:
+            type: integer
+            format: int32
+            example: 1
+        - name: productId
+          in: path
+          description: Specifies the product id to delete, each product is identified with a numeric id.
+          required: true
+          schema:
+            type: integer
+            format: int32
+            example: 7
       responses:
         201:
           description: Created.
@@ -598,7 +614,7 @@ paths:
             application/json:
               schema:
                 type: string
-                example: { "message": "Producto eliminado con éxito."}
+                example: { "message": "Producto eliminado con éxito." }
         401:
           description: Unauthorized
           content: {}
@@ -608,30 +624,32 @@ paths:
             application/json:
               schema:
                 oneOf:
-                - $ref: '#/components/responses/token403'
-                - $ref: '#/components/responses/403'
+                  - $ref: "#/components/responses/token403"
+                  - $ref: "#/components/responses/403"
               example:
-              - Forbidden
-              - {"message": "El usuario no tiene permisos para esta acción."}
+                - Forbidden
+                - {
+                    "message": "El usuario no tiene permisos para esta acción.",
+                  }
         501:
           description: Error.
-          content: 
+          content:
             application/json:
               schema:
                 oneOf:
-                - $ref: '#/components/responses/501'
-                - $ref: '#/components/responses/validator501'
-              example: 
-              - {"error": "El producto no pudo ser eliminado."}
-              - {"error": "Error en validación"} 
-    
-#ORDERS PATHS
+                  - $ref: "#/components/responses/501"
+                  - $ref: "#/components/responses/validator501"
+              example:
+                - { "error": "El producto no pudo ser eliminado." }
+                - { "error": "Error en validación" }
+
+  #ORDERS PATHS
   /orders/createOrder:
     post:
       tags:
-      - orders
+        - orders
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       summary: Create Order
       description: Only a logged user can create a new order
       operationId: createOrder
@@ -641,7 +659,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/createOrder'
+              $ref: "#/components/schemas/createOrder"
             example:
               userId: 3
               payTypeId: 2
@@ -659,7 +677,7 @@ paths:
             application/json:
               schema:
                 type: string
-                example: {"message": "Orden creada con éxito."}
+                example: { "message": "Orden creada con éxito." }
         401:
           description: Unauthorized
           content: {}
@@ -672,86 +690,85 @@ paths:
             application/json:
               schema:
                 oneOf:
-                - $ref: '#/components/responses/501'
-              example: 
-                {"error": "No se pudo crear la orden."}
-  
+                  - $ref: "#/components/responses/501"
+              example: { "error": "No se pudo crear la orden." }
+
   /orders/getAllOrders/{roleId}:
     get:
       tags:
-      - orders
+        - orders
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       summary: Get All Orders
       description: Only an administrator user can access to all orders.
       operationId: getAllOrders
       parameters:
-      - name: roleId
-        in: path
-        description: Specifies the role of the user to be able to perform the action and access the information as an administrator.
-        required: true
-        schema:
-          type: integer
-          format: int32
-          example: 1
+        - name: roleId
+          in: path
+          description: Specifies the role of the user to be able to perform the action and access the information as an administrator.
+          required: true
+          schema:
+            type: integer
+            format: int32
+            example: 1
       responses:
         200:
           description: OK - data.
-          content: 
+          content:
             application/json:
-              schema: 
+              schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/orders'
+                  $ref: "#/components/schemas/orders"
                 example:
-                - status: Nuevo
-                  orderTime: "2021-08-19T15:13:49.000Z"
-                  orderId: 10
-                  orderDescription: "1xSoda, 1xPanini"
-                  payDescription: Efectivo
-                  total: 16000
-                  fullUserName: "John Smith"
-                  address: "Altos del Parque No. 12"
-                - status: Confirmado
-                  orderTime: "2021-08-19T15:01:09.000Z"
-                  orderId: 6
-                  orderDescription: "1xCafé, 1xPicada"
-                  payDescription: Efectivo
-                  total: 39000
-                  fullUserName: "Lara Croft"
-                  address: "Circunvalar 7 # 8 - 90"
-                - status: En preparación
-                  orderTime: "2021-08-16T19:31:48.000Z"
-                  orderId: 5
-                  orderDescription: "2xPerrito, 1xSoda"
-                  payDescription: Tarjeta
-                  total: 19000
-                  fullUserName: "Jane Doe"
-                  address: "Calle 2 # 3 -45"
-                - status: En camino
-                  orderTime: "2021-08-16T19:24:08.000Z"
-                  orderId: 4
-                  orderDescription: "1xPizza, 2xNachos, 1xSoda, 1xJugoNatural"
-                  payDescription: Efectivo
-                  total: 47500
-                  fullUserName: "John Smith"
-                  address: "Altos del Parque No. 12"
-                - status: Entregado
-                  orderTime: "2021-08-05T21:41:52.000Z"
-                  orderId: 2
-                  orderDescription: "1xHamburgesa, 1xJugo Natural"
-                  payDescription: Tarjeta
-                  total: 24500
-                  fullUserName: "Paola Andrea Cadena Joya"
-                  address: "Carrera 1 # 2 - 3"
-                - status: Cancelado
-                  orderTime: "2021-08-19T16:56:14.000Z"
-                  orderId: 11
-                  orderDescription: "1xCafé, 1xPanini"
-                  payDescription: Tarjeta
-                  total: 17000
-                  fullUserName: "Lara Croft"
-                  address: "Circunvalar 7 # 8 - 90"
+                  - status: Nuevo
+                    orderTime: "2021-08-19T15:13:49.000Z"
+                    orderId: 10
+                    orderDescription: "1xSoda, 1xPanini"
+                    payDescription: Efectivo
+                    total: 16000
+                    fullUserName: "John Smith"
+                    address: "Altos del Parque No. 12"
+                  - status: Confirmado
+                    orderTime: "2021-08-19T15:01:09.000Z"
+                    orderId: 6
+                    orderDescription: "1xCafé, 1xPicada"
+                    payDescription: Efectivo
+                    total: 39000
+                    fullUserName: "Lara Croft"
+                    address: "Circunvalar 7 # 8 - 90"
+                  - status: En preparación
+                    orderTime: "2021-08-16T19:31:48.000Z"
+                    orderId: 5
+                    orderDescription: "2xPerrito, 1xSoda"
+                    payDescription: Tarjeta
+                    total: 19000
+                    fullUserName: "Jane Doe"
+                    address: "Calle 2 # 3 -45"
+                  - status: En camino
+                    orderTime: "2021-08-16T19:24:08.000Z"
+                    orderId: 4
+                    orderDescription: "1xPizza, 2xNachos, 1xSoda, 1xJugoNatural"
+                    payDescription: Efectivo
+                    total: 47500
+                    fullUserName: "John Smith"
+                    address: "Altos del Parque No. 12"
+                  - status: Entregado
+                    orderTime: "2021-08-05T21:41:52.000Z"
+                    orderId: 2
+                    orderDescription: "1xHamburgesa, 1xJugo Natural"
+                    payDescription: Tarjeta
+                    total: 24500
+                    fullUserName: "Paola Andrea Cadena Joya"
+                    address: "Carrera 1 # 2 - 3"
+                  - status: Cancelado
+                    orderTime: "2021-08-19T16:56:14.000Z"
+                    orderId: 11
+                    orderDescription: "1xCafé, 1xPanini"
+                    payDescription: Tarjeta
+                    total: 17000
+                    fullUserName: "Lara Croft"
+                    address: "Circunvalar 7 # 8 - 90"
         401:
           description: Unauthorized
           content: {}
@@ -761,90 +778,92 @@ paths:
             application/json:
               schema:
                 oneOf:
-                - $ref: '#/components/responses/token403'
-                - $ref: '#/components/responses/403'
+                  - $ref: "#/components/responses/token403"
+                  - $ref: "#/components/responses/403"
               example:
-              - Forbidden
-              - {"message": "El usuario no tiene permisos para esta acción."}
+                - Forbidden
+                - {
+                    "message": "El usuario no tiene permisos para esta acción.",
+                  }
         501:
           description: Error.
-          content: 
+          content:
             application/json:
               schema:
                 oneOf:
-                - $ref: '#/components/responses/501'
-                - $ref: '#/components/responses/validator501'
-              example: 
-              - {"error": "No se puede obtener la información."}
-              - {"error": "Error en validación"}    
-  
-  /orders/{userLoggedId}/{userId}:  
+                  - $ref: "#/components/responses/501"
+                  - $ref: "#/components/responses/validator501"
+              example:
+                - { "error": "No se puede obtener la información." }
+                - { "error": "Error en validación" }
+
+  /orders/{userLoggedId}/{userId}:
     get:
       tags:
-      - orders
+        - orders
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       summary: Get Orders by User Id
       description: Get all the orders information associate with a userId. Administrator can perform this action and get the information of the orders of a user.  The user with a client rol onle get his/her own orders information by Id, the system verifies if the query user is the same user in session.
       operationId: getOrdersByUserId
       parameters:
-      - name: userLoggedId
-        in: path
-        description: Identifies the logged on user and whether he/she has permissions to perform the get user by Id.
-        required: true
-        schema:
-          type: integer
-          format: int32
-          example: 2
-      - name: userId
-        in: path
-        description: Specifies the user id to query, each user is identified with a numeric id. 
-        required: true
-        schema:
-          type: integer
-          format: int32 
-          example: 12
+        - name: userLoggedId
+          in: path
+          description: Identifies the logged on user and whether he/she has permissions to perform the get user by Id.
+          required: true
+          schema:
+            type: integer
+            format: int32
+            example: 2
+        - name: userId
+          in: path
+          description: Specifies the user id to query, each user is identified with a numeric id.
+          required: true
+          schema:
+            type: integer
+            format: int32
+            example: 12
       responses:
         200:
           description: OK - data.
-          content: 
+          content:
             application/json:
-              schema: 
+              schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/orders'
+                  $ref: "#/components/schemas/orders"
                 example:
-                - status: Nuevo
-                  orderTime: "2021-08-19T15:13:49.000Z"
-                  orderId: 10
-                  orderDescription: "1xSoda, 1xPanini"
-                  payDescription: Efectivo
-                  total: 16000
-                  fullUserName: "John Smith"
-                  address: "Altos del Parque No. 12"
-                - status: En preparación
-                  orderTime: "2021-08-19T15:09:55.000Z"
-                  orderId: 9
-                  orderDescription: "1xSoda, 1xPanini"
-                  payDescription: Efectivo
-                  total: 16000
-                  fullUserName: "John Smith"
-                  address: "Altos del Parque No. 12"
-                - status: En camino
-                  orderTime: "2021-08-16T19:24:08.000Z"
-                  orderId: 4
-                  orderDescription: "1xPizza, 2xNachos, 1xSoda, 1xJugoNatural"
-                  payDescription: Efectivo
-                  total: 47500
-                  fullUserName: "John Smith"
-                  address: "Altos del Parque No. 12"
+                  - status: Nuevo
+                    orderTime: "2021-08-19T15:13:49.000Z"
+                    orderId: 10
+                    orderDescription: "1xSoda, 1xPanini"
+                    payDescription: Efectivo
+                    total: 16000
+                    fullUserName: "John Smith"
+                    address: "Altos del Parque No. 12"
+                  - status: En preparación
+                    orderTime: "2021-08-19T15:09:55.000Z"
+                    orderId: 9
+                    orderDescription: "1xSoda, 1xPanini"
+                    payDescription: Efectivo
+                    total: 16000
+                    fullUserName: "John Smith"
+                    address: "Altos del Parque No. 12"
+                  - status: En camino
+                    orderTime: "2021-08-16T19:24:08.000Z"
+                    orderId: 4
+                    orderDescription: "1xPizza, 2xNachos, 1xSoda, 1xJugoNatural"
+                    payDescription: Efectivo
+                    total: 47500
+                    fullUserName: "John Smith"
+                    address: "Altos del Parque No. 12"
         204:
           description: No Content
-          content: 
+          content:
             application/json:
               schema:
                 type: string
-                example: {"message": "El usuario no posee órdenes"}
+                example: { "message": "El usuario no posee órdenes" }
         401:
           description: Unauthorized
           content: {}
@@ -854,29 +873,31 @@ paths:
             application/json:
               schema:
                 oneOf:
-                - $ref: '#/components/responses/token403'
-                - $ref: '#/components/responses/403'
+                  - $ref: "#/components/responses/token403"
+                  - $ref: "#/components/responses/403"
               example:
-              - Forbidden
-              - {"message": "El usuario no tiene permisos para esta acción."}
+                - Forbidden
+                - {
+                    "message": "El usuario no tiene permisos para esta acción.",
+                  }
         501:
           description: Error.
-          content: 
+          content:
             application/json:
               schema:
                 oneOf:
-                - $ref: '#/components/responses/501'
-                - $ref: '#/components/responses/validator501'
-              example: 
-              - {"error": "No se puede obtener la información."}
-              - {"error": "Error en validación"}    
-  
+                  - $ref: "#/components/responses/501"
+                  - $ref: "#/components/responses/validator501"
+              example:
+                - { "error": "No se puede obtener la información." }
+                - { "error": "Error en validación" }
+
   /orders/updateOrderStatus:
     put:
-      tags: 
-      - orders
+      tags:
+        - orders
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       summary: Update Order Status
       description: Updates the order status in order to aware the user the process order
       operationId: updateOrderStatus
@@ -886,7 +907,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/orderStatus'
+              $ref: "#/components/schemas/orderStatus"
             example:
               roleId: 1
               ordeId: 9
@@ -898,7 +919,8 @@ paths:
             application/json:
               schema:
                 type: string
-                example: { "message": "El estado de la orden ha sido actualizado."}
+                example:
+                  { "message": "El estado de la orden ha sido actualizado." }
         401:
           description: Unauthorized
           content: {}
@@ -908,36 +930,38 @@ paths:
             application/json:
               schema:
                 oneOf:
-                - $ref: '#/components/responses/token403'
-                - $ref: '#/components/responses/403'
+                  - $ref: "#/components/responses/token403"
+                  - $ref: "#/components/responses/403"
               example:
-              - Forbidden
-              - {"message": "El usuario no tiene permisos para esta acción."}
+                - Forbidden
+                - {
+                    "message": "El usuario no tiene permisos para esta acción.",
+                  }
         501:
           description: Error.
-          content: 
+          content:
             application/json:
               schema:
                 oneOf:
-                - $ref: '#/components/responses/501'
-                - $ref: '#/components/responses/validator501'
-              example: 
-              - {"error": "El estado de la orden no pudo ser actualizado."}
-              - {"error": "Error en validación"} 
-                 
+                  - $ref: "#/components/responses/501"
+                  - $ref: "#/components/responses/validator501"
+              example:
+                - { "error": "El estado de la orden no pudo ser actualizado." }
+                - { "error": "Error en validación" }
+
 components:
   schemas:
-#USERS SCHEMAS
+    #USERS SCHEMAS
     users:
       required:
-      - username
-      - roleId
-      - password
-      - firstName
-      - lastName
-      - email
-      - address
-      - phone
+        - username
+        - roleId
+        - password
+        - firstName
+        - lastName
+        - email
+        - address
+        - phone
       type: object
       properties:
         username:
@@ -950,7 +974,7 @@ components:
           type: string
           format: password
           example: $2b$10$PjzUwmpON4iHG4YbMp2SUOmQSsgtADM./pbb92fyaqxXbXn3Yxzhm
-        firstName: 
+        firstName:
           type: string
           example: John
         lastName:
@@ -966,11 +990,11 @@ components:
         phone:
           type: string
           example: 3019876532
-          
+
     login:
       required:
-      - username
-      - password
+        - username
+        - password
       type: object
       properties:
         username:
@@ -980,7 +1004,7 @@ components:
           type: string
           format: password
           example: def123
-          
+
     userById:
       allOf:
         - type: object
@@ -988,23 +1012,23 @@ components:
             userId:
               type: integer
               example: 5
-        - $ref: '#/components/schemas/users'
-          
+        - $ref: "#/components/schemas/users"
+
     allUsers:
       type: array
       items:
         type: object
         properties:
           userId:
-            type: integer 
-          username: 
+            type: integer
+          username:
             type: string
           roleId:
             type: integer
           password:
             type: string
             format: password
-          firstName: 
+          firstName:
             type: string
           lastName:
             type: string
@@ -1017,18 +1041,18 @@ components:
             type: string
           enable:
             type: string
-            
+
     updateUser:
       required:
-      - userLoggedId
-      - userId
-      - username
-      - password
-      - firstName
-      - lastName
-      - email
-      - address
-      - phone
+        - userLoggedId
+        - userId
+        - username
+        - password
+        - firstName
+        - lastName
+        - email
+        - address
+        - phone
       type: object
       properties:
         userLoggedId:
@@ -1044,7 +1068,7 @@ components:
           type: string
           format: password
           example: def123
-        firstName: 
+        firstName:
           type: string
           example: John
         lastName:
@@ -1061,7 +1085,7 @@ components:
           type: string
           example: 3019876532
 
-#PRODUCTS SCHEMAS
+    #PRODUCTS SCHEMAS
     product:
       required:
         - name
@@ -1069,22 +1093,22 @@ components:
         - cost
       type: object
       properties:
-          name:
-            type: string
-          image:
-            type: string
-            format: byte
-            description: Base64-encoded contents of the product image
-          cost:
-            type: integer
-            
+        name:
+          type: string
+        image:
+          type: string
+          format: byte
+          description: Base64-encoded contents of the product image
+        cost:
+          type: integer
+
     productId:
       allOf:
         - type: object
           properties:
             productId:
               type: integer
-        - $ref: '#/components/schemas/product'
+        - $ref: "#/components/schemas/product"
 
     productInfo:
       allOf:
@@ -1092,17 +1116,17 @@ components:
           properties:
             roleId:
               type: integer
-        - $ref: '#/components/schemas/productId'
-        
-#ORDERS SCHEMAS:
+        - $ref: "#/components/schemas/productId"
+
+    #ORDERS SCHEMAS:
     orders:
       type: array
       items:
         type: object
         properties:
           status:
-            type: string 
-          orderTime: 
+            type: string
+          orderTime:
             type: string
             format: data_time
           orderId:
@@ -1117,17 +1141,17 @@ components:
             type: string
           address:
             type: string
-    
+
     listProduct:
       type: array
       items:
         type: object
-        properties: 
+        properties:
           productId:
             type: integer
           quantity:
-            type: integer        
-            
+            type: integer
+
     createOrder:
       allOf:
         - type: object
@@ -1140,13 +1164,13 @@ components:
               type: string
             total:
               type: integer
-        - $ref: '#/components/schemas/listProduct'
+        - $ref: "#/components/schemas/listProduct"
 
     orderStatus:
       required:
-      - roleId
-      - orderId
-      - orderStatusId
+        - roleId
+        - orderId
+        - orderStatusId
       type: object
       properties:
         roleId:
@@ -1155,38 +1179,37 @@ components:
           type: integer
         orderStatusId:
           type: integer
-        
-#RESPONSES
+
+  #RESPONSES
   responses:
     token403:
       description: Forbidden
       content: {}
-    
+
     403:
       description: No Auth
       content:
         application/json:
           schema:
             type: string
-      
+
     validator501:
       description: Error
       content:
         application/json:
           schema:
             type: string
-            
+
     501:
       description: Error
       content:
         application/json:
           schema:
             type: string
-           
 
-# SECURITY SCHEMAS          
+  # SECURITY SCHEMAS
   securitySchemes:
-      bearerAuth: 
-        type: http
-        scheme: bearer
-        bearerFormat: JWT
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
