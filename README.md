@@ -63,5 +63,8 @@ Dado que este proyecto cuenta con la dependencia dotenv, en la carpeta API halla
 > Dado que el sistema tiene implementado express router, en esta carpeta se encuentran definidas las rutas para cada uno de los controladores.
 
 ## Swagger
-> En la carpeta api encontraras Delilah_Resto.yaml donde podras visualizar la documentación del presente sistema y si lo deseas puedes abrir un editor de swagger para que copies la informacion proporcionada y realices pruebas de los diferentes endpoints.
+> En la carpeta api encontrarás Delilah_Resto.yaml donde podrás visualizar la documentación del presente sistema y si lo deseas puedes abrir un editor de swagger para que copies la información proporcionada y realices pruebas de los diferentes endpoints.
 
+## LICENCIA
+> Copyright © 2021 Paola Andrea Cadena Joya
+> Este proyecto tiene la siguiente licencia: [MIT]
