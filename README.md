@@ -67,4 +67,5 @@ Dado que este proyecto cuenta con la dependencia dotenv, en la carpeta API halla
 
 ## LICENCIA
 > Copyright © 2021 Paola Andrea Cadena Joya
+> 
 > Este proyecto tiene la siguiente licencia: [MIT]
